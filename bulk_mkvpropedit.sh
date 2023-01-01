@@ -1,5 +1,6 @@
 usage() {
 cat << EOF
+
     Usage: $0 <filepath> [options]
 
     -h,  --help                 Display help
@@ -92,6 +93,7 @@ fi
 
 command="$command \;"
 if [[ $testing == true ]]; then
+    echo "The command which would have been run:"
     echo "$command"
 else
     echo "Running $command"
