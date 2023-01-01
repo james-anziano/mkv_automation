@@ -17,6 +17,7 @@ for episode in $( seq -w 01 $num_episodes ); do
     current_episode_name="${current_episode_filename%.*}"
     command="/usr/bin/mkvmerge --ui-language en_US --priority lower --output $input_dir/$current_episode_name.mkv --language 0:und --language 1:en '(' $current_episode_filepath ')'"
     for subtitle_filepath in subtitle_filepaths; do
+        subtitle_filepath="${subtitle_filepath//E+([0-9])/E$episode}"
         command="$command  --language 0:en --default-track-flag 0:no '(' $subtitle_filepath ')'"
     done
     command="$command  --track-order 0:0,0:1,1:0,2:0"
