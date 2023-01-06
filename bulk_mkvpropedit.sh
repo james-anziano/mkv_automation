@@ -4,9 +4,9 @@
 usage() {
 cat << EOF
 
-    Usage: $0 <filepath> [options]
+    Usage: $0 [OPTION...] DIR...
 
-For each <filepath> supplied, set the specified flags for the specified tracks.
+For each DIR supplied, set the specified flags for the specified tracks for all files in DIR.
 
     -h,  --help                 Display help.
 
@@ -69,27 +69,27 @@ while [ "$1" != "" ]; do
 done
 
 if (( ${#positional_args[@]} < 1 )); then
-    echo "Please supply at least one filepath."
+    echo "ERROR: Please supply at least one DIR."
     exit 1
 fi
 
 if [[ $default_audio_track != false && ! $default_audio_track =~ ^[0-9]+$ ]]; then
-    echo "Default audio track '$default_audio_track' must be an integer."
+    echo "ERROR: Default audio track '$default_audio_track' must be an integer."
     exit 1
 fi
 if [[ $default_subtitle_track != false && ! $default_subtitle_track =~ ^[0-9]+$ ]]; then
-    echo "Default subtitle track '$default_subtitle_track' must be an integer."
+    echo "ERROR: Default subtitle track '$default_subtitle_track' must be an integer."
     exit 1
 fi
 if [[ $default_subtitle_track != false && ! $forced_subtitle_track =~ ^[0-9]+$ ]]; then
-    echo "Forced subtitle track '$forced_subtitle_track' must be an integer."
+    echo "ERROR: Forced subtitle track '$forced_subtitle_track' must be an integer."
     exit 1
 fi
 
 for filepath in "${positional_args[@]}"; do
 
     if [[ ! -d "$filepath" ]]; then
-        echo "'$filepath' is not a directory or does not exist."
+        echo "ERROR: '$filepath' is not a directory or does not exist."
         exit 1
     fi
 

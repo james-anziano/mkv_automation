@@ -3,9 +3,9 @@
 usage() {
 cat << EOF
 
-    Usage: $0 <command> [options]
+    Usage: $0 [OPTION...] COMMAND
 
-Apply a command to a sequence of seasons and episodes. Be sure to wrap <command> in quotes
+Apply COMMAND to a sequence of seasons and episodes. Be sure to wrap COMMAND in quotes
 so that it can be read as a single argument.
 
     -h,  --help                 Display help.
@@ -60,21 +60,21 @@ while [ "$1" != "" ]; do
 done
 
 if (( ${#positional_args[@]} < 1 )); then
-    echo "Please supply <command>"
+    echo "ERROR: Please supply <command>."
     exit 1
 fi
 if (( ${#positional_args[@]} > 1 )); then
-    echo "Please supply only one <command>"
+    echo "ERROR: Please supply only one <command>."
     exit 1
 fi
 command="${positional_args[0]}"
 
 if [[ ! $season_range =~ ^[0-9]+-[0-9]+$ ]]; then
-    echo "Invalid season range. Range strings should follow the format of \"##-##\", with as many significant digits as the filenames have."
+    echo "ERROR: Invalid season range. Range strings should follow the format of \"##-##\", with as many significant digits as the filenames have."
     exit 1
 fi
 if [[ ! $episode_range =~ ^[0-9]+-[0-9]+$ ]]; then
-    echo "Invalid episode range. Range strings should follow the format of \"##-##\", with as many significant digits as the filenames have."
+    echo "ERROR: Invalid episode range. Range strings should follow the format of \"##-##\", with as many significant digits as the filenames have."
     exit 1
 fi
 
